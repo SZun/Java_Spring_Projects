@@ -1,0 +1,2 @@
+Order Number,Customer Name,State,Tax Rate,Product Type,Area,Cost Per Square Foot,Labor Cost Per Square Foot,Material Cost,Labor Cost,Tax,Total
+1,Sam,Pennsylvania,6.00,Carpet,100,2.25,2.10,225.00,210.00,26,461.00

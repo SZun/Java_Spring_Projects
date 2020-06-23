@@ -1,0 +1,4 @@
+Order Number,Customer Name,State,Tax Rate,Product Type,Area,Cost Per Square Foot,Labor Cost Per Square Foot,Material Cost,Labor Cost,Tax,Total
+1,Samuel,Colorado,2.90,Wood,500,5.15,4.75,2575.00,2375.00,144,5094.00
+2,Sammy,Illinois,6.25,Laminate,500,1.75,2.10,875.00,1050.00,120,2045.00
+3,Rimma,California,7.25,Tile,200,3.50,4.15,700.00,830.00,111,1641.00

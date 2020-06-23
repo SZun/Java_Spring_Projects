@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/aop  
+          http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+    
+    <bean id="orderFileDAO" class="com.sg.flooringmastery.dao.FlooringMasteryFileOrderDAO">
+        <constructor-arg type="java.lang.String" value="testData"/>
+    </bean>
+    <bean id="productFileDAO" class="com.sg.flooringmastery.dao.FlooringMasteryFileProductDAO">
+        <constructor-arg type="java.lang.String" value="testData"/>
+    </bean>
+    <bean id="taxFileDAO" class="com.sg.flooringmastery.dao.FlooringMasteryFileTaxDAO">
+        <constructor-arg type="java.lang.String" value="testData"/>
+    </bean>
+    
+    <bean id="orderInMemDAO" class="com.sg.flooringmastery.dao.FlooringMasteryInMemOrderDAO"/>
+    <bean id="productInMemDAO" class="com.sg.flooringmastery.dao.FlooringMasteryInMemProductDAO"/>
+    <bean id="taxInMemDAO" class="com.sg.flooringmastery.dao.FlooringMasteryInMemTaxDAO"/>
+    
+    <bean id="view" class="com.sg.flooringmastery.view.FlooringMasteryView"/>
+
+    <bean id="service" class="com.sg.flooringmastery.service.FlooringMasteryService">
+        <constructor-arg ref="orderInMemDAO"/>
+        <constructor-arg ref="productInMemDAO"/>
+        <constructor-arg ref="taxInMemDAO"/>
+    </bean>
+    
+    <bean id="controller" class="com.sg.flooringmastery.controller.FlooringMasteryController">
+        <constructor-arg ref="service" />
+        <constructor-arg ref="view" />
+    </bean>
+    
+</beans>

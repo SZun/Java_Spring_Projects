@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/aop  
+          http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+    <bean id="fileDao" class="com.sg.vendingmachine.vendingmachine.daos.VendingMachineFileDAO">
+        <constructor-arg type="java.lang.String" value="testData/test.txt"/>
+    </bean>    
+    
+    <bean id="inMemDao" class="com.sg.vendingmachine.vendingmachine.daos.VendingMachineInMemDAO"/>
+
+    <bean id="view" class="com.sg.vendingmachine.vendingmachine.views.VendingMachineView"/>
+    
+    <bean id="service" class="com.sg.vendingmachine.vendingmachine.services.VendingMachineService">
+        <constructor-arg ref="inMemDao"/>
+    </bean>
+    
+<bean id="controller" class="com.sg.vendingmachine.vendingmachine.controllers.VendingMachineController">
+    <constructor-arg ref="service" />
+    <constructor-arg ref="view" />
+</bean>
+   
+</beans>

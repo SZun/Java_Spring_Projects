@@ -1,0 +1,2 @@
+Order Number,Customer Name,State,Tax Rate,Product Type,Area,Cost Per Square Foot,Labor Cost Per Square Foot,Material Cost,Labor Cost,Tax,Total
+1,Sam,Illinois,6.25,Carpet,200,2.25,2.10,450.00,420.00,54,924.00
