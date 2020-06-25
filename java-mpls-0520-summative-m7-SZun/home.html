@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VendingMachine</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-header">
+            <h1 class="heading-1 text-center">Vending Machine</h1>
+          </div>
+          <div id="error-messages"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="row" id="snacks"></div>
+        </div>
+        <div class="col-sm-4">
+          <!-- Total Money -->
+          <h2 class="text-center">Total $ In</h2>
+          <input
+            class="col-sm-offset-3"
+            type="text"
+            id="money"
+            value="0.00"
+            readonly
+          />
+          <div class="row btn-toolbar">
+            <div class="col-sm-6">
+              <button class="text-center btn-primary btn" id="add-dollar-btn">
+                Add Dollar
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <button
+                class="text-center btn-primary mt-3 btn"
+                id="add-quarter-btn"
+              >
+                Add Quarter
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <button
+                class="text-center btn-primary mt-3 btn"
+                id="add-dime-btn"
+              >
+                Add Dime
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <button
+                class="text-center btn-primary mt-3 btn"
+                id="add-nickel-btn"
+              >
+                Add Nickel
+              </button>
+            </div>
+          </div>
+          <hr />
+
+          <!-- Message -->
+          <h2 class="text-center">Messages</h2>
+          <textarea
+            name="messages"
+            id="message"
+            cols="50"
+            rows="2"
+            readonly
+          ></textarea>
+          <label for="item" class="col-sm-2 col-form-label">Item:</label>
+          <input type="number" id="purchase-item-id" readonly />
+          <br />
+          <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+              <button class="btn btn-primary text-center" id="purchase-btn">
+                Make Purchase
+              </button>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+          <hr />
+
+          <!-- Change -->
+          <h2 class="text-center">Change</h2>
+          <input
+            class="col-sm-offset-2 text-center"
+            type="text"
+            id="change"
+            readonly
+          />
+          <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+              <button
+                class="btn btn-primary text-center"
+                id="change-return-btn"
+              >
+                Return Change
+              </button>
+            </div>
+            <div class="col-sm-4"></div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>
