@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <title>Superhero Sightings</title>
+    </head>
+    <body>
+        <!-- Main Body of Page -->
+        <div class="container">
+            <div class="row m-4">
+                <div class="col text-center border border-dark">
+                    <h1>Superhero Sightings</h1>
+                </div>
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <a href="/locations" class="btn btn-outline-primary btn-lg">Locations</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/powers" class="btn btn-outline-primary btn-lg">Powers</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/superheros" class="btn btn-outline-primary btn-lg">Superheroes</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/" class="btn btn-outline-primary btn-lg">Home</a>
+                </div>
+            </div>
+
+            <div class="row m-4 border border-dark">
+                <div class="col-3 text-center m-3">
+                    <span class="h3">Add Superhero</span>
+                </div>
+                <div class="col-7 text-center m-3">
+                    <form action="superheros" method="POST">
+                        <div class="form-group row">
+                            <label for="name" class="col-3 col-form-label">
+                                Name</label>
+                            <div class="col-9">
+                                <input type="text" name="name" th:value="${superhero.name}"
+                                       id="name" class="form-control"/>
+                            </div>
+                            <div class="col-12">
+                                <div th:if="${#fields.hasErrors('superhero.name')}">
+                                    <p th:each="error : ${#fields.errors('superhero.name')}" class="alert alert-danger mt-4"
+                                       th:text="${error}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-3 col-form-label">
+                                Description</label>
+                            <div class="col-9">
+                                <input type="text" name="description" th:value="${superhero.description}"
+                                       id="description" class="form-control"/>
+                            </div>
+                            <div class="col-12">
+                                <div th:if="${#fields.hasErrors('superhero.description')}">
+                                    <p th:each="error : ${#fields.errors('superhero.description')}" class="alert alert-danger mt-4"
+                                       th:text="${error}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-left">Powers:</p>
+                        <div th:each="power : ${powers}" class="form-group row custom-control custom-radio text-left">
+                            <input type="radio" th:id="${power.id + power.name}" th:value="${power.id}" 
+                                   name="powerId" class="custom-control-input"
+                                   th:checked="${superhero.power.equals(power)}">
+                            <label class="custom-control-label" th:for="${power.id + power.name}" th:text="${power.name}"></label>
+                        </div>
+                        <div class="col-12">
+                            <div th:if="${#fields.hasErrors('superhero.power')}">
+                                <p th:each="error : ${#fields.errors('superhero.power')}" class="alert alert-danger mt-4"
+                                   th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <p class="text-left">Organizations:</p>
+                        <div th:each="org : ${organizations}" class="form-group row">
+                            <input type="checkbox" name="orgId" 
+                                   th:checked="${superhero.organizations.contains(org)}"
+                                   th:value="${org.id}" class="form-check-input" >
+                            <label class="form-check-label" for="heroId" th:text="${org.name}"></label>
+                        </div>
+                        <div class="col-12">
+                            <div th:if="${#fields.hasErrors('superhero.organizations')}">
+                                <p th:each="error : ${#fields.errors('superhero.organizations')}" class="alert alert-danger mt-4"
+                                   th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Superhero</button>
+                    </form>
+                </div>
+
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Power</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="hero : ${superheros}">
+                                <td th:text="${hero.id}"></td>
+                                <td th:text="${hero.name}"></td>
+                                <td th:text="${hero.description}"></td>
+                                <td th:text="${hero.getPower().getName()}"></td>
+                                <td><a href="#" th:href="${'/superheros/' + hero.id}">Details</a></td>
+                                <td><a href="#" th:href="@{/editsuperhero(id=${hero.id})}">Edit</a></td>
+                                <td><a href="#" th:href="@{/deletesuperhero(id=${hero.id})}">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>

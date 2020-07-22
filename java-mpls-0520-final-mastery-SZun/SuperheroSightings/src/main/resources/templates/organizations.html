@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <title>Superhero Sightings</title>
+    </head>
+    <body>
+        <!-- Main Body of Page -->
+        <div class="container">
+            <div class="row m-4">
+                <div class="col text-center border border-dark">
+                    <h1>Superhero Sightings</h1>
+                </div>
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <a href="/locations" class="btn btn-outline-primary btn-lg">Locations</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/powers" class="btn btn-outline-primary btn-lg">Powers</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/superheros" class="btn btn-outline-primary btn-lg">Superheroes</a>
+                </div>
+                <div class="col text-center m-3">
+                    <a href="/" class="btn btn-outline-primary btn-lg">Home</a>
+                </div>
+            </div>
+
+            <div class="row m-4 border border-dark">
+                <div class="col-3 text-center m-3">
+                    <span class="h3">Add Organization</span>
+                </div>
+                <div class="col-7 text-center m-3">
+                    <form action="organizations" method="POST">
+                        <div class="form-group row">
+                            <label for="name" class="col-3 col-form-label">
+                                Name</label>
+                            <div class="col-9">
+                                <input type="text" name="name" th:value="${organization.name}"
+                                       id="name" class="form-control"/>
+                            </div>
+                            <div class="col-12">
+                                <div th:if="${#fields.hasErrors('organization.name')}">
+                                    <p th:each="error : ${#fields.errors('organization.name')}" class="alert alert-danger mt-4"
+                                       th:text="${error}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="address" class="col-3 col-form-label">
+                                Address</label>
+                            <div class="col-9">
+                                <input type="text" name="address" th:value="${organization.address}"
+                                       id="address" class="form-control"/>
+                            </div>
+                            <div class="col-12">
+                                <div th:if="${#fields.hasErrors('organization.address')}">
+                                    <p th:each="error : ${#fields.errors('organization.address')}" class="alert alert-danger mt-4"
+                                       th:text="${error}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-3 col-form-label">
+                                Email</label>
+                            <div class="col-9">
+                                <input type="email" name="email" th:value="${organization.email}"
+                                       id="email" class="form-control"/>
+                            </div>
+                            <div class="col-12">
+                                <div th:if="${#fields.hasErrors('organization.email')}">
+                                    <p th:each="error : ${#fields.errors('organization.email')}" class="alert alert-danger mt-4"
+                                       th:text="${error}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-left">Superheros:</p>
+                        <div th:each="hero : ${superheros}" class="form-group row">
+                            <input type="checkbox" name="heroId" 
+                                   th:checked="${organization.members.contains(hero)}"
+                                   th:value="${hero.id}" class="form-check-input" >
+                            <label class="form-check-label" for="heroId" th:text="${hero.name}"></label>
+                        </div>
+                        <div class="col-12">
+                            <div th:if="${#fields.hasErrors('organization.members')}">
+                                <p th:each="error : ${#fields.errors('organization.members')}" class="alert alert-danger mt-4"
+                                   th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Organization</button>
+                    </form>
+                </div>
+
+            </div>
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Details</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="organization : ${organizations}">
+                                <td th:text="${organization.id}"></td>
+                                <td th:text="${organization.name}"></td>
+                                <td th:text="${organization.address}"></td>
+                                <td th:text="${organization.email}"></td>
+                                <td><a href="#" th:href="${'/organizations/' + organization.id}">Details</a></td>
+                                <td><a href="#" th:href="@{/editorganization(id=${organization.id})}">Edit</a></td>
+                                <td><a href="#" th:href="@{/deleteorganization(id=${organization.id})}">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
