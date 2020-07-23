@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}" href="#" >
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row m-4">
+                <div class="col text-center">
+                    <h1 class="display-1 animate__animated animate__lightSpeedInLeft">Meat Street</h1>
+                </div>
+            </div>
+
+            <div class="row m-4">
+                <div class="col text-center m-3 main-font" th:each="page : ${pages}">
+                    <a href="" th:href="${'/static-page/' + page.id}" th:text="${page.title}"
+                       class="btn btn-outline-info bg-white btn-lg animate__animated animate__tada"></a>
+                </div>
+            </div>
+
+            <div class="row m-4">
+                <div class="col-3 text-center m-3">
+                    <span class="h3 text-info main-font animate__animated animate__fadeInDown" >Please Login</span>
+                </div>
+                <div class="col-7 text-center m-3">
+                    <form action="/login" method="POST">
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label text-info main-font animate__animated animate__slideInLeft" for="username">Username: </label>
+                            <div class="col-md-8">
+                                <input type="text" id="username" name="username" class="form-control animate__animated animate__slideInLeft" placeholder="Jhon Smith"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-3 col-form-label text-info main-font animate__animated animate__slideInRight" for="password">Password: </label>
+                            <div class="col-md-8">
+                                <input type="password" id="password" name="password" class="form-control animate__animated animate__slideInRight" placeholder="@pass1234#"/>
+                            </div>
+                            <div class="col-12">
+                                <div th:if="${#request.getParameter('login_error') == 1}">
+                                    <p class="alert alert-danger mt-4" >Login Attempt failed. Please ensure you entered a valid username and password.</p>
+                                </div>
+                            </div>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-outline-info bg-white mt-3 main-font animate__animated animate__rubberBand">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+        <script>$(document).ready(function () {
+        $('body').bootstrapMaterialDesign();
+    });</script>
+    </body>
+</html>
